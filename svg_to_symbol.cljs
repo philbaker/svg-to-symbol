@@ -1,6 +1,5 @@
 (ns svg-to-symbol
   (:require 
-    [clojure.pprint :refer [pprint]]
     [clojure.string :as str]
     ["node-html-parser" :as html :refer [parse]]
     ["fs" :as fs]

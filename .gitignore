@@ -1,3 +1,5 @@
 /node_modules
 .nrepl-port
 *.svg
+.clj-kondo/
+.lsp/
