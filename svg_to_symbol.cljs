@@ -15,6 +15,8 @@
 
 (str "<symbol id=\"" symbol-id "\" viewbox=\"0 0 24 24\">" path "<symbol>")
 
-(println "Transforming " file " ...")
+(println "Transforming" (first *command-line-args*))
 
 (fs/writeFileSync (str symbol-id ".svg") transformed-svg)
+
+(println "Done")
