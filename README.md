@@ -1,7 +1,7 @@
 # SVG to Symbol
 
-Takes an SVG file, optimises it via SVGO and writes "<symbol><path /><symbol>"
-to a new file <symbol-id>.svg
+Takes an SVG file, optimises it via SVGO and writes `<symbol><path /><symbol>`
+to symbol-id.svg
 
 ## Example
 `nbb glasses.svg glasses-outline`
