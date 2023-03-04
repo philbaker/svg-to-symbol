@@ -1,0 +1,15 @@
+{
+  "name": "svg-to-symbol",
+  "version": "1.0.0",
+  "description": "Optimises an SVG and converts to a symbol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "philbaker",
+  "license": "MIT",
+  "dependencies": {
+    "node-html-parser": "^6.1.5",
+    "svgo": "^3.0.2"
+  }
+}
