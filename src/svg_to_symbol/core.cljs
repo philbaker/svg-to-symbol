@@ -1,11 +1,12 @@
-(ns svg-to-symbol 
+(ns svg-to-symbol.core
   (:require [clojure.string :as str]
             ["node-html-parser" :as html :refer [parse]]
             ["fs" :as fs]
             ["svgo$default" :refer [optimize]]))
 
-(def file-name (first *command-line-args*))
-(def symbol-id (second *command-line-args*))
+(def cmd-line-args (not-empty (js->clj (.slice js/process.argv 2))))
+(def file-name (first cmd-line-args))
+(def symbol-id (second cmd-line-args))
 
 (defn svg->symbol [file-name id] 
   (let [file (str (fs/readFileSync file-name))
