@@ -4,17 +4,13 @@
             ["fs" :as fs]
             ["svgo$default" :refer [optimize]]))
 
-(def file (str (fs/readFileSync (first *command-line-args*))))
+(def file-name (first *command-line-args*))
 (def symbol-id (second *command-line-args*))
 
-(def transformed-svg (:data (js->clj (optimize file) :keywordize-keys true)))
+(defn svg->symbol [file-name id] 
+  (let [file (str (fs/readFileSync file-name))
+        optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))  
+        path-tag (str (.querySelector (parse optimized-svg) "path"))]
+    (str "<symbol id=\"" id "\" viewbox=\"0 0 24 24\">" path-tag "</symbol>")))
 
-(def path (str (.querySelector (parse transformed-svg) "path")))
-
-(str "<symbol id=\"" symbol-id "\" viewbox=\"0 0 24 24\">" path "<symbol>")
-
-(println "Transforming" (first *command-line-args*))
-
-(fs/writeFileSync (str symbol-id ".svg") transformed-svg)
-
-(println "Done")
+(println (svg->symbol file-name symbol-id))
