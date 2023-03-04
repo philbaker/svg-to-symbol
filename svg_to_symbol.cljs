@@ -1,9 +1,8 @@
-(ns svg-to-symbol
-  (:require 
-    [clojure.string :as str]
-    ["node-html-parser" :as html :refer [parse]]
-    ["fs" :as fs]
-    ["svgo$default" :refer [optimize]]))
+(ns svg-to-symbol 
+  (:require [clojure.string :as str]
+            ["node-html-parser" :as html :refer [parse]]
+            ["fs" :as fs]
+            ["svgo$default" :refer [optimize]]))
 
 (def file (str (fs/readFileSync (first *command-line-args*))))
 (def symbol-id (second *command-line-args*))
