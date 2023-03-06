@@ -33,7 +33,7 @@
   (let [view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox")
         optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))  
         path-tag (str (.querySelector (parse optimized-svg) "path"))
-        path-tag-self-close (clojure.string/replace path-tag #"></path>" "/>")]
+        path-tag-self-close (str/replace path-tag #"></path>" "/>")]
     (str "<symbol id=\"" id "\" viewBox=\"" view-box "\">" path-tag-self-close "</symbol>")))
 
 ; Output
