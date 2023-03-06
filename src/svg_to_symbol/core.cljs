@@ -9,7 +9,6 @@
 (def cmd-line-args (js->clj (.slice js/process.argv 2)))
 (def file-name (first cmd-line-args))
 (def symbol-id (second cmd-line-args))
-(def file-contents (str (fs/readFileSync file-name)))
 
 ; Error handling
 (when-not
@@ -28,6 +27,8 @@
   (js/process.exit 1))
 
 ; SVG transformation
+(def file-contents (str (fs/readFileSync file-name)))
+
 (defn svg->symbol [file id] 
   (let [view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox")
         optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))  
