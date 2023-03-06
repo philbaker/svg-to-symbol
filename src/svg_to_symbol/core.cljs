@@ -30,8 +30,9 @@
 (defn svg->symbol [file-name id] 
   (let [file (str (fs/readFileSync file-name))
         optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))  
-        path-tag (str (.querySelector (parse optimized-svg) "path"))]
-    (str "<symbol id=\"" id "\" viewbox=\"0 0 24 24\">" path-tag "</symbol>")))
+        path-tag (str (.querySelector (parse optimized-svg) "path"))
+        path-tag-self-close (clojure.string/replace path-tag #"></path>" "/>")]
+    (str "<symbol id=\"" id "\" viewBox=\"0 0 24 24\">" path-tag-self-close "</symbol>")))
 
 ; Output
 (println (svg->symbol file-name symbol-id))
