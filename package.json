@@ -1,6 +1,6 @@
 {
   "name": "svg-to-symbol",
-  "version": "0.0.10",
+  "version": "1.0.0",
   "description": "Optimises an SVG and converts to a symbol",
   "main": "index.mjs",
   "author": "philbaker",
