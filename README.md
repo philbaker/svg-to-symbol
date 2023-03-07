@@ -10,5 +10,5 @@ or run via npx: `npx svg-to-symbol glasses.svg glasses-outline`
 - Arg 2: symbol id `<symbol-id>`
 
 ### Pipe output to clipboard
- - Ubuntu: `npx svg_to_symbol.cljs glasses.svg glasses-outline | xclip -sel clip`
- - Mac: `npx svg_to_symbol.cljs glasses.svg glasses-outline | pbcopy`
+ - Ubuntu: `npx svg-to-symbol glasses.svg glasses-outline | xclip -sel clip`
+ - Mac: `npx svg-to-symbol glasses.svg glasses-outline | pbcopy`
