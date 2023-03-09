@@ -4,7 +4,7 @@ Takes an SVG file, optimises it via SVGO and prints to stdout
 ## Usage
 Install globally with `npm -g svg-to-symbol` 
 
-or run via npx: `npx svg-to-symbol glasses.svg glasses-outline`
+or run via npx: `npx svg-to-symbol file.svg symbol-id`
 
 - Arg 1: file name `<file.svg>`
 - Arg 2 (optional): symbol id `<symbol-id>`
