@@ -33,8 +33,9 @@
   ([file id] 
    (let [view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox")
          optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))
-         path (str (.querySelector (parse optimized-svg) "path"))]
-     (str "<symbol id=\"" id "\" viewBox=\"" view-box "\">" path "</symbol>"))))
+         path (str (.querySelector (parse optimized-svg) "path"))
+         path-self-close (str/replace path #"></path>" "/>")]
+     (str "<symbol id=\"" id "\" viewBox=\"" view-box "\">" path-self-close "</symbol>"))))
 
 ; Output
 (def file-contents (str (fs/readFileSync file-name)))
@@ -47,4 +48,5 @@
   (def view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox"))
   (def optimized-svg (:data (js->clj (optimize file) :keywordize-keys true)))
   (def path (str (.querySelector (parse optimized-svg) "path")))
+  (str/replace "<svg><path></path><path>hello<path><path></path></svg>" #"></path>" "/>")
   )
