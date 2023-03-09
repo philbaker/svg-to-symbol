@@ -1,6 +1,6 @@
 {
   "name": "svg-to-symbol",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Optimises an SVG and converts to a symbol",
   "main": "index.mjs",
   "author": "philbaker",
@@ -9,6 +9,10 @@
     "nbb": "1.2.169",
     "node-html-parser": "^6.1.5",
     "svgo": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philbaker/svg-to-symbol.git"
   },
   "bin": {
     "svg-to-symbol": "index.mjs"

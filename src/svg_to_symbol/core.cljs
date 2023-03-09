@@ -11,9 +11,9 @@
 (def symbol-id (second cmd-line-args))
 
 ; Error handling
-(when-not
-  (= 2 (count cmd-line-args))
-  (println "svg-to-symbol expects two arguments: file-name and symbol-id")
+(when
+  (nil? file-name)
+  (println "svg-to-symbol expects an svg file name as the first argument")
   (js/process.exit 1))
 
 (when-not
@@ -29,12 +29,23 @@
 ; SVG transformation
 (def file-contents (str (fs/readFileSync file-name)))
 
-(defn svg->symbol [file id] 
-  (let [view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox")
-        optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))  
-        path-tag (str (.querySelector (parse optimized-svg) "path"))
-        path-tag-self-close (str/replace path-tag #"></path>" "/>")]
-    (str "<symbol id=\"" id "\" viewBox=\"" view-box "\">" path-tag-self-close "</symbol>")))
+(defn svg->symbol 
+  ([file]
+   (:data (js->clj (optimize file) :keywordize-keys true)))
+  ([file id] 
+   (let [view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox")
+         optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))
+         path (str (.querySelector (parse optimized-svg) "path"))]
+     (str "<symbol id=\"" id "\" viewBox=\"" view-box "\">" path "</symbol>"))))
 
 ; Output
-(println (svg->symbol file-contents symbol-id))
+(if (= (count cmd-line-args) 2)
+  (println (svg->symbol file-contents symbol-id)) 
+  (println (svg->symbol file-contents)))
+
+(comment
+  (def file (str (fs/readFileSync "glasses.svg")))
+  (def view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox"))
+  (def optimized-svg (:data (js->clj (optimize file) :keywordize-keys true)))
+  (def path (str (.querySelector (parse optimized-svg) "path")))
+  )
