@@ -27,8 +27,6 @@
   (js/process.exit 1))
 
 ; SVG transformation
-(def file-contents (str (fs/readFileSync file-name)))
-
 (defn svg->symbol 
   ([file]
    (:data (js->clj (optimize file) :keywordize-keys true)))
@@ -39,9 +37,10 @@
      (str "<symbol id=\"" id "\" viewBox=\"" view-box "\">" path "</symbol>"))))
 
 ; Output
-(if (= (count cmd-line-args) 2)
-  (println (svg->symbol file-contents symbol-id)) 
-  (println (svg->symbol file-contents)))
+(def file-contents (str (fs/readFileSync file-name)))
+(if (= (count cmd-line-args) 1)
+  (println (svg->symbol file-contents))
+  (println (svg->symbol file-contents symbol-id)))
 
 (comment
   (def file (str (fs/readFileSync "glasses.svg")))
