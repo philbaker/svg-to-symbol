@@ -27,10 +27,6 @@
   (println "file must have the extension .svg")
   (js/process.exit 1))
 
-(comment
-  (def file (str (fs/readFileSync "glasses.svg")))
-  (def id "glasses"))
-
 ; SVG transformation
 (defn svg->symbol 
   ([file]
@@ -49,3 +45,8 @@
 (if (= (count cmd-line-args) 1)
   (println (svg->symbol file-contents))
   (println (svg->symbol file-contents symbol-id)))
+
+(comment
+  (def file (str (fs/readFileSync "glasses.svg")))
+  (def id "glasses"))
+
