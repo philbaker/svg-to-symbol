@@ -43,12 +43,3 @@
 (if (= (count cmd-line-args) 1)
   (println (svg->symbol file-contents))
   (println (svg->symbol file-contents symbol-id)))
-
-(comment
-  (def file (str (fs/readFileSync "user-icon.svg")))
-  (def view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox"))
-  (def optimized-svg (:data (js->clj (optimize file) :keywordize-keys true)))
-  (def path (str (.querySelectorAll (parse optimized-svg) "path")))
-  (def contents (str (.querySelectorAll (.-firstChild (parse optimized-svg)) "*")))
-  (str/replace "<svg><path></path><path>hello<path><path></path></svg>" #"></path>" "/>")
-  )
