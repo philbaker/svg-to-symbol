@@ -1,5 +1,6 @@
 (ns svg-to-symbol.core
   (:require [clojure.string :as str]
+            [borkdude.deflet :refer [deflet]]
             ["node-html-parser" :as html :refer [parse]]
             ["fs" :as fs]
             ["path" :as path]
@@ -26,16 +27,21 @@
   (println "file must have the extension .svg")
   (js/process.exit 1))
 
+(comment
+  (def file (str (fs/readFileSync "glasses.svg")))
+  (def id "glasses"))
+
 ; SVG transformation
 (defn svg->symbol 
   ([file]
    (:data (js->clj (optimize file) :keywordize-keys true)))
   ([file id] 
-   (let [view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox")
-         optimized-svg (:data (js->clj (optimize file) :keywordize-keys true))
-         contents (str (.querySelectorAll (.-firstChild (parse optimized-svg)) "*"))
-         path-self-close (str/replace contents #"></path>" "/>")
-         contents-clean (str/replace path-self-close #"," "")]
+   (deflet 
+     (def view-box (.getAttribute (.querySelector (parse file) "svg") "viewBox"))
+     (def optimized-svg (:data (js->clj (optimize file) :keywordize-keys true)))
+     (def contents (str (.querySelectorAll (.-firstChild (parse optimized-svg)) "*")))
+     (def path-self-close (str/replace contents #"></path>" "/>"))
+     (def contents-clean (str/replace path-self-close #"," ""))
      (str "<symbol id=\"" id "\" viewBox=\"" view-box "\">" contents-clean "</symbol>"))))
 
 ; Output
